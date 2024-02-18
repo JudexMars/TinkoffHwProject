@@ -3,3 +3,18 @@ spring:
     graphiql:
       enabled: true
     path: /graphql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/example
+    driver-class-name: org.postgresql.Driver
+    username: judex
+    password: 12345
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8080
+  address: 0.0.0.0
