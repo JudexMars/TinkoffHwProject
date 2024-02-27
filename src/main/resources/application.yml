@@ -9,12 +9,14 @@ spring:
     username: judex
     password: 12345
   jpa:
-    generate-ddl: true
+    generate-ddl: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    change-log: classpath:db/db-changelog.xml
 server:
   port: 8080
   address: 0.0.0.0

@@ -32,7 +32,7 @@ services:
       - service-db-volume:/var/lib/postgresql/data
 secrets:
   db-password:
-    file: src/main/resources/password.txt
+    file: src/main/resources/db/password.txt
 networks:
   spring-postgres:
     driver: bridge
