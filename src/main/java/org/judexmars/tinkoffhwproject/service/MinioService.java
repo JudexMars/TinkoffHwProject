@@ -22,6 +22,12 @@ public class MinioService {
 
     private final MinioProperties properties;
 
+    /**
+     * Upload new image
+     * @param file binary file
+     * @return Image's meta information as {@link ImageDto}
+     * @throws Exception if the file cannot be uploaded
+     */
     public ImageDto uploadImage(MultipartFile file) throws Exception {
         String fileId = UUID.randomUUID().toString();
 
@@ -38,6 +44,12 @@ public class MinioService {
         return new ImageDto(file.getOriginalFilename(), file.getSize(), fileId);
     }
 
+    /**
+     * Download image
+     * @param link link to the image in the storage
+     * @return binary representation of the image
+     * @throws Exception if the image can't be found or downloaded
+     */
     public byte[] downloadImage(String link) throws Exception {
         return IOUtils.toByteArray(client.getObject(
                 GetObjectArgs.builder()

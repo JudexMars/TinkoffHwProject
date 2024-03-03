@@ -12,7 +12,6 @@ import org.judexmars.tinkoffhwproject.dto.ImageDto;
 import org.judexmars.tinkoffhwproject.dto.MessageDto;
 import org.judexmars.tinkoffhwproject.dto.SendMessageDto;
 import org.judexmars.tinkoffhwproject.exception.ImagesNotFoundException;
-import org.judexmars.tinkoffhwproject.mapper.MessageMapper;
 import org.judexmars.tinkoffhwproject.service.MessageService;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +25,11 @@ import java.util.List;
 public class MessageController {
 
     private final MessageService messageService;
-    private final MessageMapper messageMapper;
 
     @Operation(description = "Получить все сообщения")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = MessageDto.class)))
+                    array = @ArraySchema(schema = @Schema(implementation = MessageDto.class))))
     })
     @GetMapping("/messages")
     public List<MessageDto> getMessages() {
@@ -70,7 +68,6 @@ public class MessageController {
     })
     @PostMapping("/send")
     public MessageDto sendMessage(@RequestBody SendMessageDto messageDto) throws ImagesNotFoundException {
-        return messageService
-                .createMessage(messageMapper.sendMessageDtoToMessage(messageDto), messageDto.imageIds());
+        return messageService.createMessage(messageDto, messageDto.imageIds());
     }
 }
