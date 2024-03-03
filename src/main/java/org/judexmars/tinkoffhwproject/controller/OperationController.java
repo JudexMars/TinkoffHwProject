@@ -1,5 +1,6 @@
 package org.judexmars.tinkoffhwproject.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.judexmars.tinkoffhwproject.dto.OperationDto;
 import org.judexmars.tinkoffhwproject.model.Operation;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1")
 @RequiredArgsConstructor
+@Tag(name = "Операции (логирование)")
 public class OperationController {
 
     private final OperationService service;

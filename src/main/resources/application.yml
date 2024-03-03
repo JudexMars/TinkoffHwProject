@@ -1,3 +1,4 @@
+
 spring:
   graphql:
     graphiql:
@@ -29,7 +30,7 @@ spring:
     redis:
       time-to-live: 30000
   messages:
-    basename: messages
+    basename: i18n/messages
   liquibase:
     change-log: classpath:db/db-changelog.xml
 server:
@@ -46,3 +47,6 @@ minio:
 logging:
   level:
     "liquibase": info
+springdoc:
+  api-docs:
+    path: /swagger-ui

@@ -17,8 +17,8 @@ public class BaseNotFoundExceptionHandler {
     @ExceptionHandler(BaseNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFoundException(BaseNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponse(messageRenderer.render(ex.getMessageCode(), ex.getArgs())));
+                .body(new ErrorResponse(404, messageRenderer.render(ex.getMessageCode(), ex.getArgs())));
     }
 
-    public record ErrorResponse(String message) { }
+    public record ErrorResponse(int status, String message) { }
 }

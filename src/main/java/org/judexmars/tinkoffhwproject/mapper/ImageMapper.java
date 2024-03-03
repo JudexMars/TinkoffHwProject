@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ImageMapper {
 
+    @Mapping(target = "fileId", source = "link")
     ImageDto imageToImageDto(Image image);
 
     @Mapping(target = "link", source = "fileId")
