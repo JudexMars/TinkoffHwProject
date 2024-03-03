@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.judexmars.tinkoffhwproject.dto.ImageDto;
 import org.judexmars.tinkoffhwproject.dto.MessageDto;
@@ -67,7 +68,7 @@ public class MessageController {
                     schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping("/send")
-    public MessageDto sendMessage(@RequestBody SendMessageDto messageDto) throws ImagesNotFoundException {
+    public MessageDto sendMessage(@RequestBody @Valid SendMessageDto messageDto) throws ImagesNotFoundException {
         return messageService.createMessage(messageDto, messageDto.imageIds());
     }
 }
