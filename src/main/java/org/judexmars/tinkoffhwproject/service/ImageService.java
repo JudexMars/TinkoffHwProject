@@ -79,7 +79,7 @@ public class ImageService {
      * @throws Exception if image is not found or can't be downloaded for some reason
      */
     public byte[] downloadImage(String link) throws Exception {
-        if (imageRepository.existsImageByLink(link)) {
+        if (!imageRepository.existsImageByLink(link)) {
             throw new ImageNotFoundException(link);
         }
 
