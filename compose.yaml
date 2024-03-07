@@ -1,0 +1,41 @@
+services:
+  service-backend:
+    image: tinkoffhwproject:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - service-db
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://service-db/example
+    networks:
+      - spring-postgres
+  service-db:
+    image: postgres
+    container_name: "service-db"
+    restart: always
+    secrets:
+      - db-password
+    networks:
+      - spring-postgres
+    environment:
+      - POSTGRES_DB=example
+      - POSTGRES_USER=judex
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - PG_DATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
+    volumes:
+      - service-db-volume:/var/lib/postgresql/data
+secrets:
+  db-password:
+    file: src/main/resources/db/password.txt
+networks:
+  spring-postgres:
+    driver: bridge
+
+volumes:
+  service-db-volume:
