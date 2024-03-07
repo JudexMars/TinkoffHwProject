@@ -5,8 +5,6 @@ import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -15,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name = "message")
-@ToString
 public class Message {
 
     @Id
@@ -32,13 +29,4 @@ public class Message {
     @Column(name = "lastmodifieddate")
     @UpdateTimestamp
     private LocalDateTime lastModifiedDate;
-
-    @ToString.Exclude
-    @ManyToMany
-    @JoinTable(
-            name = "message_image",
-            joinColumns = @JoinColumn(name = "message_id"),
-            inverseJoinColumns = @JoinColumn(name = "image_id")
-    )
-    private List<Image> images = new ArrayList<>();
 }

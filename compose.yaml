@@ -8,17 +8,11 @@ services:
       - 8080:8080
     depends_on:
       - service-db
-      - redis
-      - service-mongodb
-      - minio
     environment:
       - SERVER_PORT=8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://service-db/example
-      - SPRING_DATA_MONGODB_HOST=service-mongodb:27017
-      - SPRING_DATA_REDIS_HOST=redis
-      - MINIO_URL=http://service-minio:9000
     networks:
-      - spring-bridge
+      - spring-postgres
   service-db:
     image: postgres
     container_name: "service-db"
@@ -26,7 +20,7 @@ services:
     secrets:
       - db-password
     networks:
-      - spring-bridge
+      - spring-postgres
     environment:
       - POSTGRES_DB=example
       - POSTGRES_USER=judex
@@ -36,54 +30,12 @@ services:
       - 5432:5432
     volumes:
       - service-db-volume:/var/lib/postgresql/data
-  service-mongodb:
-    image: mongo:latest
-    container_name: service-mongodb
-    ports:
-      - "27017:27017"
-    networks:
-      - spring-bridge
-    environment:
-      MONGO_INITDB_DATABASE: maindb
-    volumes:
-      - ./environment/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-      - service-db-mongo-volume:/data/db
-      - service-db-mongo-config:/data/configdb
-  redis:
-    image: redis:latest
-    restart: always
-    container_name: redis
-    ports:
-      - "6379:6379"
-    command: redis-server --save 20 1 --logLevel warning --requirePass 6k_j76,dDUl_
-    volumes:
-      - service-db-redis:/data
-    networks:
-      - spring-bridge
-  minio:
-    image: minio/minio:latest
-    container_name: service-minio
-    environment:
-      MINIO_ROOT_USER: judex
-      MINIO_ROOT_PASSWORD: password
-    volumes:
-      - ./environment/minio/data:/data
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    command: server /data --console-address :9001 && mc alias set minio http://localhost:9000 judex password && mc mb data/minio/minio-storage
-    networks:
-      - spring-bridge
 secrets:
   db-password:
     file: src/main/resources/db/password.txt
 networks:
-  spring-bridge:
+  spring-postgres:
     driver: bridge
 
 volumes:
   service-db-volume:
-  service-db-mongo-volume:
-  service-db-mongo-config:
-  service-db-redis:
-  storage-minio:
