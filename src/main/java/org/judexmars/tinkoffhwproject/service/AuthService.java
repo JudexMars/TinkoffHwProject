@@ -1,7 +1,7 @@
 package org.judexmars.tinkoffhwproject.service;
 
 import lombok.RequiredArgsConstructor;
-import org.judexmars.tinkoffhwproject.exception.AccessDeniedException;
+import org.judexmars.tinkoffhwproject.exception.InvalidJwtException;
 import org.judexmars.tinkoffhwproject.model.AccountEntity;
 import org.judexmars.tinkoffhwproject.utils.JwtTokenUtils;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -44,7 +44,7 @@ public class AuthService {
      * @param refreshToken provided refresh token
      * @return {accessToken, refreshToken, userId, username}
      */
-    public String[] refresh(String refreshToken) throws AccessDeniedException {
+    public String[] refresh(String refreshToken) throws InvalidJwtException {
         var username = jwtTokenUtils.getUsernameFromRefreshToken(refreshToken);
         var deleted = redisTokenService.deleteRefreshToken(username, refreshToken);
         if (deleted) {
@@ -54,6 +54,6 @@ public class AuthService {
             redisTokenService.saveRefreshToken(username, refreshToken);
             return new String[]{accessToken, refreshToken, String.valueOf(account.getId()), account.getUsername()};
         }
-        throw new AccessDeniedException("JWT is not valid");
+        throw new InvalidJwtException();
     }
 }

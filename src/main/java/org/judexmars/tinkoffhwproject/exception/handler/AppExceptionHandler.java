@@ -54,11 +54,11 @@ public class AppExceptionHandler {
     @ExceptionHandler(AccountAlreadyExistsException.class)
     public ResponseEntity<AppExceptionHandler.ErrorResponse> handleAccountAlreadyExistsException(NoSuchRoleException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(new AppExceptionHandler.ErrorResponse(409, messageRenderer.render(ex.getMessageCode())));
+                .body(new AppExceptionHandler.ErrorResponse(409, messageRenderer.render(ex.getMessageCode(), ex.getArgs())));
     }
 
     @ExceptionHandler(
-            {AccessDeniedException.class, ExpiredJwtException.class,
+            {InvalidJwtException.class, ExpiredJwtException.class,
                     UnsupportedJwtException.class,
                     MalformedJwtException.class, SignatureException.class})
     public ResponseEntity<AppExceptionHandler.ErrorResponse> handleAccountJwtException() {

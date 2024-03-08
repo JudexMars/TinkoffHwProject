@@ -62,7 +62,7 @@ public class AccountService implements UserDetailsService {
      */
     public AccountDto createAccount(CreateAccountDto createAccountDto) {
         if (accountRepository.findByUsername(createAccountDto.username()).isPresent()) {
-            throw new AccountAlreadyExistsException();
+            throw new AccountAlreadyExistsException(createAccountDto.username());
         }
         if (!createAccountDto.password().equals(createAccountDto.confirmPassword())) {
             throw new ConfirmPasswordException();
