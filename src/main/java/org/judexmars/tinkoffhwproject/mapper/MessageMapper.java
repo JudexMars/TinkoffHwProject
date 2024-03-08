@@ -1,14 +1,14 @@
 package org.judexmars.tinkoffhwproject.mapper;
 
-import org.judexmars.tinkoffhwproject.dto.MessageDto;
-import org.judexmars.tinkoffhwproject.dto.SendMessageDto;
-import org.judexmars.tinkoffhwproject.model.Message;
+import org.judexmars.tinkoffhwproject.dto.message.MessageDto;
+import org.judexmars.tinkoffhwproject.dto.message.SendMessageDto;
+import org.judexmars.tinkoffhwproject.model.MessageEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface MessageMapper {
 
-    MessageDto MessageToMessageDto(Message message);
+    MessageDto MessageToMessageDto(MessageEntity message);
 
-    Message sendMessageDtoToMessage(SendMessageDto messageDto);
+    MessageEntity sendMessageDtoToMessage(SendMessageDto messageDto);
 }

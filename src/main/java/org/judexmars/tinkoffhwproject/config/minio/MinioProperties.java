@@ -1,4 +1,4 @@
-package org.judexmars.tinkoffhwproject.config;
+package org.judexmars.tinkoffhwproject.config.minio;
 
 import lombok.Getter;
 import lombok.Setter;

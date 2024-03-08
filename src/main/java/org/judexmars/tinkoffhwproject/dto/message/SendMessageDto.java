@@ -1,4 +1,4 @@
-package org.judexmars.tinkoffhwproject.dto;
+package org.judexmars.tinkoffhwproject.dto.message;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;

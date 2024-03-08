@@ -5,8 +5,8 @@ import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.compress.utils.IOUtils;
-import org.judexmars.tinkoffhwproject.config.MinioProperties;
-import org.judexmars.tinkoffhwproject.dto.ImageDto;
+import org.judexmars.tinkoffhwproject.config.minio.MinioProperties;
+import org.judexmars.tinkoffhwproject.dto.image.ImageDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

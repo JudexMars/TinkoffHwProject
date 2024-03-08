@@ -8,5 +8,7 @@
 
     <include file="/db/migrations/2024-02-23-01-create-message.xml"/>
     <include file="/db/migrations/2024-03-01-01-create-image.xml"/>
+    <include file="/db/migrations/2024-03-08-01-create-role-privilege.xml"/>
+    <include file="/db/migrations/2024-03-08-02-create-account.xml"/>
 
 </databaseChangeLog>

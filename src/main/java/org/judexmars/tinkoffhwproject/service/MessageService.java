@@ -1,16 +1,16 @@
 package org.judexmars.tinkoffhwproject.service;
 
 import lombok.RequiredArgsConstructor;
-import org.judexmars.tinkoffhwproject.dto.ImageDto;
-import org.judexmars.tinkoffhwproject.dto.MessageDto;
-import org.judexmars.tinkoffhwproject.dto.OperationDto;
-import org.judexmars.tinkoffhwproject.dto.SendMessageDto;
+import org.judexmars.tinkoffhwproject.dto.image.ImageDto;
+import org.judexmars.tinkoffhwproject.dto.message.MessageDto;
+import org.judexmars.tinkoffhwproject.dto.message.SendMessageDto;
+import org.judexmars.tinkoffhwproject.dto.operation.OperationDto;
 import org.judexmars.tinkoffhwproject.exception.ImagesNotFoundException;
 import org.judexmars.tinkoffhwproject.exception.MessageNotFoundException;
 import org.judexmars.tinkoffhwproject.mapper.ImageMapper;
 import org.judexmars.tinkoffhwproject.mapper.MessageMapper;
-import org.judexmars.tinkoffhwproject.model.Message;
-import org.judexmars.tinkoffhwproject.model.Operation;
+import org.judexmars.tinkoffhwproject.model.MessageEntity;
+import org.judexmars.tinkoffhwproject.model.OperationEntity;
 import org.judexmars.tinkoffhwproject.repository.MessageRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -53,7 +53,7 @@ public class MessageService {
                 new OperationDto(
                         String.format("Read message: %s", message),
                         LocalDateTime.now(),
-                        Operation.OperationType.READ
+                        OperationEntity.OperationType.READ
                 )
         );
         return messageMapper.MessageToMessageDto(message);
@@ -79,7 +79,7 @@ public class MessageService {
                 new OperationDto(
                         String.format("Send message: %s", message),
                         LocalDateTime.now(),
-                        Operation.OperationType.WRITE
+                        OperationEntity.OperationType.WRITE
                 )
         );
         return messageMapper.MessageToMessageDto(message);
@@ -93,7 +93,7 @@ public class MessageService {
      */
     public MessageDto createMessage(String author, String content) {
         return messageMapper.MessageToMessageDto(messageRepository
-                .save(Message.builder().author(author).content(content).build()));
+                .save(MessageEntity.builder().author(author).content(content).build()));
     }
 
     /**
@@ -108,7 +108,7 @@ public class MessageService {
                 new OperationDto(
                         String.format("Read message images: %s", message),
                         LocalDateTime.now(),
-                        Operation.OperationType.READ
+                        OperationEntity.OperationType.READ
                 )
         );
         return message.getImages().stream().map(imageMapper::imageToImageDto).collect(Collectors.toList());

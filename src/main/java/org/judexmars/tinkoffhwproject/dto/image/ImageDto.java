@@ -1,4 +1,4 @@
-package org.judexmars.tinkoffhwproject.dto;
+package org.judexmars.tinkoffhwproject.dto.image;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
