@@ -1,9 +1,9 @@
 package org.judexmars.tinkoffhwproject.service;
 
 import lombok.RequiredArgsConstructor;
-import org.judexmars.tinkoffhwproject.dto.OperationDto;
+import org.judexmars.tinkoffhwproject.dto.operation.OperationDto;
 import org.judexmars.tinkoffhwproject.mapper.OperationMapper;
-import org.judexmars.tinkoffhwproject.model.Operation;
+import org.judexmars.tinkoffhwproject.model.OperationEntity;
 import org.judexmars.tinkoffhwproject.repository.OperationRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class OperationService {
      * @param type specified type
      * @return {@link List} of {@link OperationDto}
      */
-    public List<OperationDto> getOperationsByType(Operation.OperationType type) {
+    public List<OperationDto> getOperationsByType(OperationEntity.OperationType type) {
         return mapper.operationsToOperationDtos(repository.findAllByType(type));
     }
 

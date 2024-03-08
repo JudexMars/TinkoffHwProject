@@ -1,13 +1,13 @@
 package org.judexmars.tinkoffhwproject.service;
 
 import lombok.RequiredArgsConstructor;
-import org.judexmars.tinkoffhwproject.dto.ImageDto;
-import org.judexmars.tinkoffhwproject.dto.OperationDto;
+import org.judexmars.tinkoffhwproject.dto.image.ImageDto;
+import org.judexmars.tinkoffhwproject.dto.operation.OperationDto;
 import org.judexmars.tinkoffhwproject.exception.ImageNotFoundException;
 import org.judexmars.tinkoffhwproject.exception.UploadFailedException;
 import org.judexmars.tinkoffhwproject.mapper.ImageMapper;
-import org.judexmars.tinkoffhwproject.model.Image;
-import org.judexmars.tinkoffhwproject.model.Operation;
+import org.judexmars.tinkoffhwproject.model.ImageEntity;
+import org.judexmars.tinkoffhwproject.model.OperationEntity;
 import org.judexmars.tinkoffhwproject.repository.ImageRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class ImageService {
      * @param imageIds ids
      * @return list of all corresponding images
      */
-    public List<Image> getAllImages(List<Long> imageIds) {
+    public List<ImageEntity> getAllImages(List<Long> imageIds) {
         return imageRepository.findAllByIdIn(imageIds);
     }
 
@@ -55,7 +55,7 @@ public class ImageService {
      */
     @Cacheable(value = "ImageService::getImageMeta", key = "#id")
     public ImageDto getImageMeta(long id) throws ImageNotFoundException {
-        Optional<Image> imageOptional = imageRepository.findById(id);
+        Optional<ImageEntity> imageOptional = imageRepository.findById(id);
         if (imageOptional.isEmpty()) {
             throw new ImageNotFoundException(id);
         }
@@ -65,7 +65,7 @@ public class ImageService {
                 new OperationDto(
                         String.format("Read image metadata: %s", image),
                         LocalDateTime.now(),
-                        Operation.OperationType.WRITE
+                        OperationEntity.OperationType.WRITE
                 )
         );
 
@@ -100,7 +100,7 @@ public class ImageService {
             operationService.logOperation(
                     new OperationDto(String.format("Upload image: %s", image),
                             LocalDateTime.now(),
-                            Operation.OperationType.WRITE)
+                            OperationEntity.OperationType.WRITE)
             );
             return image;
         } catch (Exception ex) {

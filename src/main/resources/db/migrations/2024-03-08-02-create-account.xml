@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2024-03-08-02-create-account" author="JudexMars">
+        <createTable remarks="Аккаунт пользователя" tableName="account">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="account_pk"/>
+            </column>
+            <column name="username" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enabled" type="bool" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="50"
+                        maxValue="9223372036854775807" minValue="1" sequenceName="account_seq" startValue="1"/>
+
+        <createTable remarks="Связь аккаунтов и ролей" tableName="account_role">
+            <column name="account_id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="account_role_pk"/>
+            </column>
+
+            <column name="role_id" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="account_role_pk"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="account_role" baseColumnNames="account_id"
+                                 constraintName="account_role_account_id_fk" referencedTableName="account"
+                                 referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="account_role" baseColumnNames="role_id"
+                                 constraintName="account_role_role_id_fk" referencedTableName="role"
+                                 referencedColumnNames="id" onDelete="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>

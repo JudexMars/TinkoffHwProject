@@ -1,4 +1,4 @@
-package org.judexmars.tinkoffhwproject.dto;
+package org.judexmars.tinkoffhwproject.dto.message;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

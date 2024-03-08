@@ -1,7 +1,7 @@
 package org.judexmars.tinkoffhwproject.mapper;
 
-import org.judexmars.tinkoffhwproject.dto.ImageDto;
-import org.judexmars.tinkoffhwproject.model.Image;
+import org.judexmars.tinkoffhwproject.dto.image.ImageDto;
+import org.judexmars.tinkoffhwproject.model.ImageEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -9,8 +9,8 @@ import org.mapstruct.Mapping;
 public interface ImageMapper {
 
     @Mapping(target = "fileId", source = "link")
-    ImageDto imageToImageDto(Image image);
+    ImageDto imageToImageDto(ImageEntity image);
 
     @Mapping(target = "link", source = "fileId")
-    Image imageDtoToImage(ImageDto image);
+    ImageEntity imageDtoToImage(ImageDto image);
 }

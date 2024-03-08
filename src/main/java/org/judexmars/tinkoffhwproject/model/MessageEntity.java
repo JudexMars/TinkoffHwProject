@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name = "message")
 @ToString
-public class Message {
+public class MessageEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_seq")
@@ -40,5 +40,5 @@ public class Message {
             joinColumns = @JoinColumn(name = "message_id"),
             inverseJoinColumns = @JoinColumn(name = "image_id")
     )
-    private List<Image> images = new ArrayList<>();
+    private List<ImageEntity> images = new ArrayList<>();
 }

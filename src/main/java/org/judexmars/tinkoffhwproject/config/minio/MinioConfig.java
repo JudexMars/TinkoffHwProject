@@ -1,4 +1,4 @@
-package org.judexmars.tinkoffhwproject.config;
+package org.judexmars.tinkoffhwproject.config.minio;
 
 import io.minio.MinioClient;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
